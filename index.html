@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>مراجعة مباراة التعليم</title>
-<meta name="description" content="أسئلة اختيار من متعدد مع التصحيح للتحضير لمباراة التعليم — تخصص اللغة العربية">
+<title>مراجعة مباراة التأهيل</title>
+<meta name="description" content="بنك أسئلة وامتحانات تجريبية QCM لمباراة ولوج مسلك تأهيل أساتذة التعليم الثانوي — تخصص اللغة العربية، حسب توصيف دورة 2026">
 <meta name="theme-color" content="#0f766e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,58 +19,93 @@
 :root{
   --bg:#f4f6f5; --panel:#fff; --text:#1b2421; --muted:#5f6d68; --border:#dce3e0;
   --accent:#0f766e; --on-accent:#fff; --accent-soft:#e2f2ef;
-  --ok:#15803d; --ok-soft:#e6f5ea; --bad:#c2410c; --bad-soft:#fdeee6;
+  --ok:#15803d; --ok-soft:#e6f5ea; --bad:#c2410c; --bad-soft:#fdeee6; --warn:#a16207;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#101615; --panel:#19211f; --text:#e5ecea; --muted:#9aa8a3; --border:#2a3532;
     --accent:#2dd4bf; --on-accent:#06201c; --accent-soft:#15322e;
-    --ok:#4ade80; --ok-soft:#14301f; --bad:#fb923c; --bad-soft:#3a2216;
+    --ok:#4ade80; --ok-soft:#14301f; --bad:#fb923c; --bad-soft:#3a2216; --warn:#facc15;
   }
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:"Cairo",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent}
 button{font:inherit;color:inherit;cursor:pointer}
-.wrap{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+.wrap{max-width:780px;margin:0 auto;padding:16px 16px 96px}
+body.in-session .wrap{padding-bottom:40px}
 .btn{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:9px 16px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
 .btn:disabled{opacity:.45;cursor:default}
 .btn.ghost{background:none;border:0;padding:6px 8px;color:var(--muted)}
+.btn.small{padding:5px 12px;font-size:14px}
 
 header.bar{display:flex;align-items:center;gap:10px;margin:4px 0 18px}
 header.bar h1{font-size:20px;margin:0;flex:1;line-height:1.35}
 header.bar h1 small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+h2.sec{font-size:14px;color:var(--muted);margin:22px 0 10px;font-weight:600}
+.note{color:var(--muted);font-size:13px;line-height:1.75}
 
-.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
-.tile{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px 16px;text-align:right;display:flex;flex-direction:column;gap:2px}
+/* شريط التنقل السفلي */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;background:var(--panel);border-top:1px solid var(--border);display:flex;justify-content:center;z-index:5;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs button{flex:1;max-width:260px;border:0;background:none;padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:0;color:var(--muted);font-size:13px;font-weight:600}
+nav.tabs button .i{font-size:20px;line-height:1.3}
+nav.tabs button.on{color:var(--accent)}
+body.in-session nav.tabs{display:none}
+
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px 16px;text-align:right;display:flex;flex-direction:column;gap:2px;width:100%}
 .tile b{font-size:16px}
 .tile span{color:var(--muted);font-size:13px}
-.tile.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.tile.main span{color:inherit;opacity:.85}
 .tile:disabled{opacity:.55;cursor:default}
+.tile:not(:disabled):hover{border-color:var(--accent)}
 
-h2.sec{font-size:14px;color:var(--muted);margin:0 0 10px;font-weight:600}
-.subjects{display:grid;gap:10px}
-.subject{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;text-align:right;width:100%}
-.subject:hover,.tile:not(:disabled):not(.main):hover{border-color:var(--accent)}
-.subject .ic{font-size:22px;width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;flex:none}
-.subject .info{flex:1;min-width:0}
-.subject .name,.subject .meta{display:block}
-.subject .name{font-weight:700}
-.subject .meta{font-size:13px;color:var(--muted)}
-.prog{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:6px}
-.prog div{height:100%;background:var(--accent);border-radius:3px}
-.best{font-size:13px;font-weight:700;color:var(--accent);flex:none;text-align:center;line-height:1.2}
-.best small{display:block;font-weight:400;color:var(--muted);font-size:11px}
-
-.settings{margin-top:26px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+/* بنك الأسئلة */
+details.scard{background:var(--panel);border:1px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden}
+details.scard>summary{list-style:none;display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer}
+details.scard>summary::-webkit-details-marker{display:none}
+.ic{font-size:22px;width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;flex:none}
+.sinfo{flex:1;min-width:0}
+.sinfo b{display:block;font-size:16px}
+.sinfo span{display:block;font-size:13px;color:var(--muted)}
+.chev{color:var(--muted);transition:transform .2s;flex:none}
+details[open]>summary .chev{transform:rotate(-90deg)}
+.sbody{padding:0 16px 14px;border-top:1px solid var(--border)}
+.dom{font-size:13px;font-weight:700;color:var(--accent);margin:14px 2px 6px;display:flex;justify-content:space-between}
+.dom em{font-style:normal;color:var(--muted);font-weight:600}
+.subrow{display:flex;align-items:center;gap:10px;width:100%;text-align:right;background:var(--bg);border:1px solid transparent;border-radius:12px;padding:10px 12px;margin-bottom:6px}
+.subrow:hover{border-color:var(--accent)}
+.subrow .nm{flex:1;min-width:0;font-size:15px;font-weight:600;line-height:1.5}
+.subrow .nm small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.subrow .go{color:var(--accent);font-weight:700;flex:none}
+.prog{display:block;height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:5px}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.allbtn{margin-top:12px;width:100%}
+.settings{margin-top:18px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
 .settings label{display:flex;gap:8px;align-items:center}
 .settings select{font:inherit;padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
-.note{color:var(--muted);font-size:13px;margin-top:14px;line-height:1.7}
 
+/* الامتحانات */
+.ecard{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px}
+.ehead{display:flex;gap:12px;align-items:center}
+.emeta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+.chip{font-size:12px;background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:2px 10px;color:var(--muted)}
+.chip b{color:var(--text)}
+.efoot{display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.last{font-size:13px;color:var(--muted)}
+.last b{color:var(--accent);font-size:15px}
+.resume{background:var(--accent-soft);border:1px solid var(--accent);border-radius:14px;padding:14px 16px;margin-bottom:14px}
+.resume .row2{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.avg{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:12px}
+.avg b{font-size:26px;color:var(--accent);direction:ltr}
+.hist{background:var(--panel);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.hrow{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:14px}
+.hrow:last-child{border-bottom:0}
+.hrow span{color:var(--muted)}
+.hrow b{direction:ltr}
+
+/* جولة الأسئلة */
 .qtop{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.qtop .count{flex:1;color:var(--muted);font-size:14px}
-.timer{font-weight:700;font-variant-numeric:tabular-nums;direction:ltr}
+.qtop .count{flex:1;color:var(--muted);font-size:14px;min-width:0}
+.timer{font-weight:700;font-variant-numeric:tabular-nums;direction:ltr;white-space:nowrap}
 .timer.low{color:var(--bad)}
 .track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:16px}
 .track div{height:100%;background:var(--accent);transition:width .25s}
@@ -91,116 +126,181 @@ h2.sec{font-size:14px;color:var(--muted);margin:0 0 10px;font-weight:600}
 .explain{margin-top:14px;border-radius:12px;padding:12px 14px;background:var(--bg);border-inline-start:4px solid var(--ok);font-size:15px;line-height:1.8}
 .explain b{display:block;margin-bottom:2px}
 .explain.bad{border-inline-start-color:var(--bad)}
-.qnav{display:flex;gap:10px;margin-top:16px;justify-content:space-between}
+.qnav{display:flex;gap:8px;margin-top:16px;justify-content:space-between;align-items:center}
+.qmap{margin-top:14px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px}
+.qmap .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;direction:rtl}
+.qmap .grid button{border:1px solid var(--border);background:var(--bg);border-radius:8px;padding:5px 0;font-size:13px;font-variant-numeric:tabular-nums}
+.qmap .grid button.done{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:700}
+.qmap .grid button.cur{outline:2px solid var(--accent);outline-offset:1px}
+.qmap .legend{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;font-size:13px;color:var(--muted);flex-wrap:wrap}
 
-.score{text-align:center;padding:26px 16px}
+/* النتيجة */
+.score{text-align:center;padding:24px 16px}
 .score .big{font-size:52px;font-weight:700;color:var(--accent);line-height:1.1;direction:ltr}
 .score .big small{font-size:22px;color:var(--muted)}
 .score .sub{color:var(--muted);margin-top:4px}
 .score .msg{font-size:18px;font-weight:700;margin-top:10px}
 .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
-.review{margin-top:22px;display:grid;gap:10px}
+.brk{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:6px 14px 12px;margin-top:14px}
+.brk .dom{margin-top:12px}
+.brow{display:flex;align-items:center;gap:10px;font-size:14px;padding:4px 0}
+.brow .n{flex:1;min-width:0}
+.brow .v{flex:none;font-weight:700;direction:ltr;min-width:56px;text-align:left}
+.brow .bar{flex:none;width:30%;height:7px;background:var(--border);border-radius:4px;overflow:hidden}
+.brow .bar i{display:block;height:100%}
+details.rvwrap{margin-top:14px}
+details.rvwrap>summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(--accent)}
+.review{display:grid;gap:10px}
 .rv{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--bad);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.8}
 .rv.ok{border-inline-start-color:var(--ok)}
 .rv .q{font-family:"Noto Naskh Arabic","Cairo",serif;font-weight:600;font-size:16px;margin-bottom:4px}
 .rv .yours{color:var(--bad)}
 .rv .right{color:var(--ok);font-weight:600}
 .rv .e{color:var(--muted);margin-top:4px}
+.rv .t{font-size:12px;color:var(--muted)}
 
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9;white-space:nowrap}
 .toast.show{opacity:1}
 @media (max-width:520px){
-  .hero{grid-template-columns:1fr}
   .qtext{font-size:18px}
   .choice{font-size:16px}
   .card{padding:16px}
+  .brow .bar{width:24%}
 }
 </style>
 </head>
 <body>
 <div class="wrap" id="app"></div>
+<nav class="tabs" id="tabs">
+  <button data-tab="bank"><span class="i">📚</span>بنك الأسئلة</button>
+  <button data-tab="exams"><span class="i">📝</span>الامتحانات</button>
+</nav>
 <div class="toast" id="toast"></div>
 
 <script src="data.js"></script>
+<script src="data-takh.js"></script>
+<script src="data-didac.js"></script>
+<script src="data-tarbia.js"></script>
 <script>
-const S = window.SUBJECTS, Q = window.QUESTIONS;
-const EXAM_N = 20;                // عدد أسئلة الامتحان التجريبي (دقيقة لكل سؤال)
+/* ================= البيانات ================= */
+const SECTIONS = window.SECTIONS, Q = window.QUESTIONS;
 const LETTERS = ['أ','ب','ج','د','هـ'];
-const SKEY = 'murajaa.v1';
+const SKEY = 'murajaa.v2';
 const app = document.getElementById('app');
 
-/* ---------- التخزين ---------- */
+function hid(s){ let h = 5381; for(let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
+Q.forEach(q => q.id = q.s + '-' + hid(q.q));
+const QID = Object.fromEntries(Q.map(q => [q.id, q]));
+
+/* فهرس المجالات الفرعية: المادة والمجال الرئيس والوزن */
+const SUB = {};
+for(const sec of SECTIONS) for(const d of sec.domains) for(const s of d.subs){
+  SUB[s.id] = {sub:s, dom:d, sec, w: s.w ?? d.weight / d.subs.length};
+}
+const qsOfSub = id => Q.filter(q => q.s === id);
+const qsOfSec = sec => Q.filter(q => SUB[q.s].sec === sec);
+
+/* ================= التخزين ================= */
 function loadStore(){
   try{
     const s = JSON.parse(localStorage.getItem(SKEY));
-    if(s && s.stats) return Object.assign({best:{}, settings:{count:10}}, s);
+    if(s && s.stats) return Object.assign({history:[], active:null, settings:{count:10, tab:'bank'}}, s);
   }catch(e){}
-  return {stats:{}, best:{}, settings:{count:10}};
+  return {stats:{}, history:[], active:null, settings:{count:10, tab:'bank'}};
 }
 let store = loadStore();
 function persist(){ try{ localStorage.setItem(SKEY, JSON.stringify(store)); }catch(e){} }
 function record(q, ok){
   const st = store.stats[q.id] || {n:0, ok:0};
   st.n++; if(ok) st.ok++; st.last = ok;
-  store.stats[q.id] = st; persist();
+  store.stats[q.id] = st;
 }
+const mastered = list => list.filter(q => store.stats[q.id]?.last === true).length;
+const wrongOnes = () => Q.filter(q => store.stats[q.id]?.last === false);
 
-/* ---------- أدوات ---------- */
+/* ================= أدوات ================= */
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const subj = id => S.find(s => s.id === id) || {name:'', icon:''};
 function shuffle(a){ a = a.slice(); for(let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
-function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2400); }
+const fmtNote = n => (Math.round(n * 100) / 100).toString();
+const fmtDur = m => m >= 60 ? (m % 60 ? `${Math.floor(m/60)} س ${m%60} د` : (m/60 === 1 ? 'ساعة' : m/60 === 2 ? 'ساعتان' : `${m/60} ساعات`)) : `${m} دقيقة`;
+const fmtDate = t => new Date(t).toLocaleDateString('ar-MA', {day:'numeric', month:'short'}) + ' ' + new Date(t).toLocaleTimeString('ar-MA', {hour:'2-digit', minute:'2-digit'});
+const pctColor = p => p >= 70 ? 'var(--ok)' : p >= 50 ? 'var(--warn)' : 'var(--bad)';
 
-/* الأسئلة التي أخطأ فيها المتعلم أولاً، ثم الجديدة، ثم المتقنة */
-function pick(pool, n){
+/* اختيار أسئلة التدريب: الخاطئة أولاً، ثم الجديدة، ثم المتقنة */
+function pickPractice(pool, n){
   const w = q => { const s = store.stats[q.id]; return !s ? 1 : (s.last === false ? 0 : 2); };
   const arr = shuffle(pool).sort((a,b) => w(a) - w(b));
   return n ? shuffle(arr.slice(0, n)) : arr;
 }
-/* امتحان تجريبي: توزيع متوازن على جميع المواد */
-function pickExam(){
-  const per = S.map(s => shuffle(Q.filter(q => q.s === s.id)));
-  const out = [];
-  for(let r = 0; out.length < EXAM_N && per.some(p => p.length); r++){
-    for(const p of shuffle(per)){ if(p.length && out.length < EXAM_N) out.push(p.pop()); }
+
+/* توزيع أسئلة الامتحان حسب أوزان التوصيف (طريقة أكبر الباقي) */
+function examPlan(sec){
+  const subs = sec.domains.flatMap(d => d.subs.map(s => SUB[s.id]));
+  const N = sec.examN;
+  let plan = subs.map(x => { const raw = N * x.w / 100; return {x, n: Math.floor(raw), r: raw - Math.floor(raw), avail: qsOfSub(x.sub.id).length}; });
+  let left = N - plan.reduce((a,p) => a + p.n, 0);
+  for(const p of [...plan].sort((a,b) => b.r - a.r)){ if(left <= 0) break; p.n++; left--; }
+  // إذا لم تكفِ أسئلة مجال فرعي، يُعاد توزيع الفائض على المجالات الأخرى
+  let extra = 0;
+  plan.forEach(p => { if(p.n > p.avail){ extra += p.n - p.avail; p.n = p.avail; } });
+  while(extra > 0 && plan.some(p => p.n < p.avail)){
+    for(const p of plan){ if(extra > 0 && p.n < p.avail){ p.n++; extra--; } }
   }
-  return shuffle(out);
+  return plan;
+}
+function buildExam(sec){
+  const out = [];
+  for(const d of sec.domains){
+    const part = [];
+    for(const p of examPlan(sec).filter(p => p.x.dom === d)) part.push(...shuffle(qsOfSub(p.x.sub.id)).slice(0, p.n));
+    out.push(...shuffle(part));
+  }
+  return out;
 }
 
-/* ---------- الصفحة الرئيسية ---------- */
-let session = null, timerId = null;
+/* ================= الحالة العامة ================= */
+let session = null, timerId = null, showMap = false;
+let tab = store.settings.tab === 'exams' ? 'exams' : 'bank';
 
-function home(){
-  stopTimer(); session = null;
-  const mistakes = Q.filter(q => store.stats[q.id]?.last === false).length;
-  const mastered = Q.filter(q => store.stats[q.id]?.last === true).length;
+function setSessionMode(on){ document.body.classList.toggle('in-session', on); }
+function render(){
+  setSessionMode(false);
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  tab === 'exams' ? renderExams() : renderBank();
+}
+
+/* ================= بنك الأسئلة ================= */
+const openSecs = new Set(['takh']);
+function renderBank(){
+  const wrong = wrongOnes().length;
   let h = `<header class="bar">
-      <h1>مراجعة مباراة التعليم<small>تخصص اللغة العربية · ${Q.length} سؤال · أتقنتَ ${mastered}</small></h1>
+      <h1>بنك الأسئلة<small>مباراة التأهيل — تخصص اللغة العربية · ${Q.length} سؤال · أتقنتَ ${mastered(Q)}</small></h1>
       <button class="btn ghost" data-act="share">مشاركة ↗</button>
     </header>
-    <div class="hero">
-      <button class="tile main" data-act="exam"><b>📝 امتحان تجريبي</b><span>${EXAM_N} سؤالاً من جميع المواد · ${EXAM_N} دقيقة</span></button>
-      <button class="tile" data-act="mistakes" ${mistakes ? '' : 'disabled'}><b>🔁 مراجعة أخطائي</b><span>${mistakes ? mistakes + ' سؤال أخطأتَ فيه' : 'لا توجد أخطاء بعد'}</span></button>
-    </div>
-    <h2 class="sec">المواد</h2>
-    <div class="subjects">`;
-  for(const s of S){
-    const qs = Q.filter(q => q.s === s.id);
-    const m = qs.filter(q => store.stats[q.id]?.last === true).length;
-    const pct = qs.length ? Math.round(m / qs.length * 100) : 0;
-    const best = store.best[s.id];
-    h += `<button class="subject" data-act="subject" data-id="${s.id}">
-        <span class="ic">${s.icon}</span>
-        <span class="info"><span class="name">${esc(s.name)}</span>
-          <span class="meta">${qs.length} سؤال · أتقنتَ ${m}</span>
-          <span class="prog" style="display:block"><span style="display:block;height:100%;width:${pct}%;background:var(--accent);border-radius:3px"></span></span></span>
-        ${best != null ? `<span class="best">${best}%<small>أفضل نتيجة</small></span>` : ''}
-      </button>`;
+    <button class="tile" data-act="mistakes" ${wrong ? '' : 'disabled'}><b>🔁 مراجعة أخطائي</b><span>${wrong ? wrong + ' سؤال أخطأتَ فيه آخر مرة' : 'لا توجد أخطاء بعد — ابدأ التدريب'}</span></button>
+    <h2 class="sec">تدرّب حسب المجالات — التصحيح يظهر بعد كل سؤال</h2>`;
+  for(const sec of SECTIONS){
+    const all = qsOfSec(sec), m = mastered(all), pct = Math.round(m / all.length * 100);
+    h += `<details class="scard" data-sec="${sec.id}" ${openSecs.has(sec.id) ? 'open' : ''}>
+      <summary><span class="ic">${sec.icon}</span>
+        <span class="sinfo"><b>${esc(sec.name)}</b><span>${all.length} سؤال · أتقنتَ ${m} (${pct}%)</span><span class="prog"><i style="width:${pct}%"></i></span></span>
+        <span class="chev">◀</span></summary>
+      <div class="sbody">`;
+    for(const d of sec.domains){
+      h += `<div class="dom"><span>${esc(d.name)}</span><em>${d.weight}%</em></div>`;
+      for(const s of d.subs){
+        const qs = qsOfSub(s.id), sm = mastered(qs), sp = qs.length ? Math.round(sm / qs.length * 100) : 0;
+        h += `<button class="subrow" data-act="sub" data-id="${s.id}">
+          <span class="nm">${esc(s.name)}<small>${qs.length} سؤال · أتقنتَ ${sm}</small><span class="prog"><i style="width:${sp}%"></i></span></span>
+          <span class="go">تدرّب ←</span></button>`;
+      }
+    }
+    h += `<button class="btn allbtn" data-act="secall" data-id="${sec.id}">تدرّب على أسئلة ${esc(sec.short)} كلها (مختلطة)</button></div></details>`;
   }
   const cnt = store.settings.count;
-  h += `</div>
-    <div class="settings">
-      <label>عدد الأسئلة في كل جولة:
+  h += `<div class="settings">
+      <label>عدد الأسئلة في كل جولة تدريب:
         <select id="countSel">
           <option value="10" ${cnt==10?'selected':''}>10</option>
           <option value="20" ${cnt==20?'selected':''}>20</option>
@@ -209,19 +309,97 @@ function home(){
       <button class="btn ghost" data-act="reset">مسح التقدم</button>
     </div>
     <p class="note">💡 تظهر الأسئلة التي أخطأتَ فيها أولاً حتى تتقنها. تقدّمك محفوظ على هذا الجهاز فقط.<br>
-    ⚠️ هذه أسئلة نموذجية للمراجعة؛ إذا لاحظتَ خطأً في سؤال أو جواب فأخبر صاحب التطبيق لتصحيحه.</p>`;
+    ⚠️ أسئلة نموذجية مبنية على توصيف دورة نونبر 2026؛ إذا لاحظتَ خطأً فأخبر صاحب التطبيق لتصحيحه.</p>`;
   app.innerHTML = h;
 }
 
-/* ---------- جولة الأسئلة ---------- */
-function start(mode, pool, title, sid){
-  const qs = mode === 'exam' ? pickExam() : pick(pool, mode === 'subject' ? +store.settings.count : 0);
+/* ================= الامتحانات ================= */
+function renderExams(){
+  let h = `<header class="bar">
+      <h1>الامتحانات التجريبية<small>${SECTIONS.length} اختبارات · ${SECTIONS[0].examN} سؤالاً في كل اختبار · حسب أوزان التوصيف الرسمي</small></h1>
+      <button class="btn ghost" data-act="share">مشاركة ↗</button>
+    </header>`;
+  const a = store.active;
+  if(a){
+    const sec = SECTIONS.find(s => s.id === a.sec);
+    const done = a.items.filter(x => x.ans !== null).length;
+    const left = Math.max(0, Math.round((a.deadline - Date.now()) / 60000));
+    h += `<div class="resume"><b>⏸ امتحان غير مكتمل: ${esc(sec ? sec.short : '')}</b>
+      <div class="note">أجبتَ عن ${done} من ${a.items.length} · الوقت المتبقي: ${left} دقيقة (الوقت يستمر في الحساب)</div>
+      <div class="row2"><button class="btn primary small" data-act="resume">متابعة الامتحان</button><button class="btn small" data-act="abandon">إلغاؤه</button></div></div>`;
+  }
+  const lastBy = {};
+  for(const r of store.history) if(!lastBy[r.sec]) lastBy[r.sec] = r;
+  const have = SECTIONS.filter(s => lastBy[s.id]);
+  if(have.length){
+    const sumC = have.reduce((a, s) => a + s.coef, 0);
+    const avg = have.reduce((a, s) => a + lastBy[s.id].note * s.coef, 0) / sumC;
+    h += `<div class="avg"><div><b style="font-size:15px;color:var(--text)">المعدل المرجّح التقديري</b>
+      <div class="note">حسب المعاملات (${SECTIONS.map(s => s.short + ' ' + s.coef).join('، ')}) — آخر نتيجة في ${have.length === SECTIONS.length ? 'كل اختبار' : have.length + ' من ' + SECTIONS.length + ' اختبارات'}</div></div>
+      <b>${fmtNote(avg)}<small style="font-size:14px;color:var(--muted)"> /20</small></b></div>`;
+  }
+  for(const sec of SECTIONS){
+    const best = store.history.filter(r => r.sec === sec.id).reduce((m, r) => Math.max(m, r.note), -1);
+    const last = lastBy[sec.id];
+    h += `<div class="ecard">
+      <div class="ehead"><span class="ic">${sec.icon}</span><span class="sinfo"><b>${esc(sec.name)}</b><span>${esc(sec.format)}</span></span></div>
+      <div class="emeta">
+        <span class="chip"><b>${sec.examN}</b> سؤالاً</span>
+        <span class="chip">المدة: <b>${fmtDur(sec.minutes)}</b></span>
+        <span class="chip">المعامل: <b>${sec.coef}</b></span>
+        ${sec.domains.map(d => `<span class="chip">${esc(d.name)}: <b>${d.weight}%</b></span>`).join('')}
+      </div>
+      <div class="efoot">
+        <span class="last">${last ? `آخر نتيجة: <b>${fmtNote(last.note)}/20</b> · أفضل: ${fmtNote(best)}/20` : 'لم تجتز هذا الامتحان بعد'}</span>
+        <button class="btn primary" data-act="exam" data-id="${sec.id}" ${a ? 'disabled title="أكمل الامتحان الجاري أو ألغِه أولاً"' : ''}>ابدأ الامتحان</button>
+      </div></div>`;
+  }
+  if(store.history.length){
+    h += `<h2 class="sec">سجل الامتحانات</h2><div class="hist">`;
+    for(const r of store.history.slice(0, 15)){
+      const sec = SECTIONS.find(s => s.id === r.sec);
+      h += `<div class="hrow"><div>${esc(sec ? sec.short : r.sec)} <span>· ${fmtDate(r.date)}</span></div><b>${fmtNote(r.note)}/20 <span>(${r.correct}/${r.total})</span></b></div>`;
+    }
+    h += `</div>`;
+  }
+  h += `<p class="note">📝 الامتحان يحاكي المباراة: ${SECTIONS[0].examN} سؤالاً موزعة على المجالات حسب أوزانها، مع وقت محدد، والتصحيح يظهر في النهاية فقط. يمكنك الخروج ومتابعة الامتحان لاحقاً، لكن الوقت يستمر في الحساب.</p>`;
+  app.innerHTML = h;
+}
+
+/* ================= الجولات (تدريب / امتحان) ================= */
+function newItems(qs){ return qs.map(q => ({q, order: shuffle(q.c.map((_, k) => k)), ans: null})); }
+
+function startPractice(pool, title, key){
+  const qs = pickPractice(pool, +store.settings.count);
   if(!qs.length) return;
-  session = {mode, pool, title, sid, i:0, done:false,
-             items: qs.map(q => ({q, order: shuffle(q.c.map((_, k) => k)), ans: null}))};
-  if(mode === 'exam'){ session.deadline = Date.now() + qs.length * 60000; startTimer(); }
+  session = {mode:'practice', title, key, poolFn: null, items: newItems(qs), i:0, done:false};
+  enterSession(); renderQuiz(true);
+}
+function startExam(secId){
+  const sec = SECTIONS.find(s => s.id === secId);
+  const qs = buildExam(sec);
+  session = {mode:'exam', sec: sec.id, title: 'امتحان ' + sec.short, items: newItems(qs), i:0, done:false,
+             started: Date.now(), deadline: Date.now() + sec.minutes * 60000};
+  showMap = false; saveActive(); enterSession(); startTimer(); renderQuiz(true);
+}
+function resumeExam(){
+  const a = store.active; if(!a) return;
+  const items = a.items.filter(x => QID[x.id]).map(x => ({q: QID[x.id], order: x.order, ans: x.ans}));
+  if(!items.length){ store.active = null; persist(); render(); return; }
+  session = {mode:'exam', sec: a.sec, title: a.title, items, i: Math.min(a.i, items.length - 1), done:false, started: a.started, deadline: a.deadline};
+  showMap = false; enterSession();
+  if(Date.now() >= session.deadline){ finish(true); return; }
+  startTimer(); renderQuiz(true);
+}
+function saveActive(){
+  if(!session || session.mode !== 'exam' || session.done) return;
+  store.active = {sec: session.sec, title: session.title, i: session.i, started: session.started, deadline: session.deadline,
+                  items: session.items.map(x => ({id: x.q.id, order: x.order, ans: x.ans}))};
+  persist();
+}
+function enterSession(){
+  setSessionMode(true);
   if(!(history.state && history.state.quiz)) history.pushState({quiz:1}, '');
-  renderQuiz(true);
 }
 
 function renderQuiz(toTop){
@@ -229,51 +407,54 @@ function renderQuiz(toTop){
   const answered = it.ans !== null, feedback = !exam && answered, last = s.i === s.items.length - 1;
   const doneCount = s.items.filter(x => x.ans !== null).length;
   let h = `<div class="qtop">
-      <button class="btn ghost" data-act="quit">✕ خروج</button>
+      <button class="btn ghost" data-act="quit">${exam ? '⏸ خروج' : '✕ خروج'}</button>
       <span class="count">${esc(s.title)} · السؤال ${s.i + 1} من ${s.items.length}</span>
       ${exam ? '<span class="timer" id="timer"></span>' : ''}
     </div>
     <div class="track"><div style="width:${doneCount / s.items.length * 100}%"></div></div>
     <div class="card">
-      <span class="tag">${subj(q.s).icon} ${esc(subj(q.s).name)}</span>
+      <span class="tag">${esc(SUB[q.s].sub.name)}</span>
       <p class="qtext">${esc(q.q)}</p>
       <div class="choices">`;
   it.order.forEach((ci, k) => {
     let cls = '';
-    if(feedback){ if(ci === q.a) cls = 'ok'; else if(ci === it.ans) cls = 'bad'; }
+    if(feedback){ if(ci === 0) cls = 'ok'; else if(ci === it.ans) cls = 'bad'; }
     else if(it.ans === ci) cls = 'sel';
     h += `<button class="choice ${cls}" data-act="choose" data-ci="${ci}" ${feedback ? 'disabled' : ''}><span class="k">${LETTERS[k]}</span><span>${esc(q.c[ci])}</span></button>`;
   });
   h += '</div>';
   if(feedback){
-    const ok = it.ans === q.a;
-    h += `<div class="explain ${ok ? '' : 'bad'}"><b>${ok ? '✅ جواب صحيح' : '❌ جواب خاطئ — الصحيح: ' + esc(q.c[q.a])}</b>${esc(q.e)}</div>`;
+    const ok = it.ans === 0;
+    h += `<div class="explain ${ok ? '' : 'bad'}"><b>${ok ? '✅ جواب صحيح' : '❌ جواب خاطئ — الصحيح: ' + esc(q.c[0])}</b>${esc(q.e)}</div>`;
   }
   h += '</div><div class="qnav">';
   if(exam){
-    h += `<button class="btn" data-act="prev" ${s.i === 0 ? 'disabled' : ''}>→ السابق</button>`;
-    h += last ? `<button class="btn primary" data-act="finish">إنهاء الامتحان ✓</button>`
-              : `<button class="btn primary" data-act="next">التالي ←</button>`;
+    h += `<button class="btn" data-act="prev" ${s.i === 0 ? 'disabled' : ''}>→ السابق</button>
+          <button class="btn small" data-act="map">${showMap ? 'إخفاء الخريطة' : 'خريطة الأسئلة'}</button>
+          ${last ? `<button class="btn primary" data-act="finish">إنهاء ✓</button>` : `<button class="btn primary" data-act="next">التالي ←</button>`}`;
   }else{
-    h += '<span></span>';
-    h += `<button class="btn primary" data-act="${last ? 'finish' : 'next'}" ${answered ? '' : 'disabled'}>${last ? 'عرض النتيجة' : 'التالي ←'}</button>`;
+    h += `<span></span><button class="btn primary" data-act="${last ? 'finish' : 'next'}" ${answered ? '' : 'disabled'}>${last ? 'عرض النتيجة' : 'التالي ←'}</button>`;
   }
   h += '</div>';
+  if(exam && showMap){
+    h += `<div class="qmap"><div class="grid">${s.items.map((x, k) => `<button class="${x.ans !== null ? 'done' : ''} ${k === s.i ? 'cur' : ''}" data-act="jump" data-k="${k}">${k + 1}</button>`).join('')}</div>
+      <div class="legend"><span>الملوّن: أُجيب عنه · بقي ${s.items.length - doneCount} سؤال</span><button class="btn primary small" data-act="finish">إنهاء الامتحان ✓</button></div></div>`;
+  }
   app.innerHTML = h;
   updateTimer();
   if(toTop) window.scrollTo(0, 0);
 }
 
 function choose(ci){
-  const it = session.items[session.i];
-  if(session.mode !== 'exam'){
+  const s = session, it = s.items[s.i];
+  if(s.mode !== 'exam'){
     if(it.ans !== null) return;
-    it.ans = ci; record(it.q, ci === it.q.a);
+    it.ans = ci; record(it.q, ci === 0); persist();
+    renderQuiz(false);
+    document.querySelector('.explain')?.scrollIntoView({behavior:'smooth', block:'nearest'});
   }else{
-    it.ans = ci;
+    it.ans = ci; saveActive(); renderQuiz(false);
   }
-  renderQuiz(false);
-  if(session.mode !== 'exam') document.querySelector('.explain')?.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function finish(timeUp){
@@ -283,99 +464,147 @@ function finish(timeUp){
     if(un && !confirm(`بقي ${un} سؤال بدون جواب. هل تريد إنهاء الامتحان؟`)) return;
   }
   stopTimer();
-  if(s.mode === 'exam') s.items.forEach(x => record(x.q, x.ans === x.q.a));
-  const correct = s.items.filter(x => x.ans === x.q.a).length, total = s.items.length;
-  const pct = Math.round(correct / total * 100);
-  if(s.sid) store.best[s.sid] = Math.max(store.best[s.sid] || 0, pct);
+  const correct = s.items.filter(x => x.ans === 0).length, total = s.items.length;
+  const note = correct / total * 20;
+  if(s.mode === 'exam'){
+    s.items.forEach(x => { if(x.ans !== null) record(x.q, x.ans === 0); });
+    store.history.unshift({sec: s.sec, date: Date.now(), correct, total, note,
+                           minutes: Math.round((Math.min(Date.now(), s.deadline) - s.started) / 60000)});
+    store.history = store.history.slice(0, 50);
+    store.active = null;
+  }
   persist();
-  s.done = true; s.result = {correct, total, pct};
-  if(timeUp) toast('⏰ انتهى الوقت');
+  s.done = true; s.result = {correct, total, note, pct: Math.round(correct / total * 100)};
+  if(timeUp) toast('⏰ انتهى الوقت — تم تصحيح الامتحان');
+  showMap = false;
   renderResult();
 }
 
 function renderResult(){
-  const s = session, {correct, total, pct} = s.result;
-  const note = Math.round(correct / total * 20 * 10) / 10;
+  const s = session, {correct, total, note, pct} = s.result, exam = s.mode === 'exam';
   const msg = pct >= 80 ? 'ممتاز! مستوى جيد جداً 🎉' : pct >= 60 ? 'جيد! واصل المراجعة 👍'
-            : pct >= 40 ? 'مقبول، تحتاج إلى مزيد من المراجعة' : 'راجع هذه الدروس جيداً وأعد المحاولة 💪';
-  const wrong = s.items.filter(x => x.ans !== x.q.a);
-  let h = `<div class="qtop"><button class="btn ghost" data-act="home">→ الرئيسية</button><span class="count">${esc(s.title)}</span></div>
+            : pct >= 40 ? 'مقبول، تحتاج إلى مزيد من المراجعة' : 'راجع هذه المجالات جيداً وأعد المحاولة 💪';
+  const wrong = s.items.filter(x => x.ans !== 0);
+  let h = `<div class="qtop"><button class="btn ghost" data-act="home">→ رجوع</button><span class="count">${esc(s.title)}</span></div>
     <div class="card score">
-      <div class="big">${note}<small> / 20</small></div>
-      <div class="sub">${correct} أجوبة صحيحة من ${total} · ${pct}%</div>
+      <div class="big">${fmtNote(note)}<small> / 20</small></div>
+      <div class="sub">${correct} جواباً صحيحاً من ${total} · ${pct}%${exam ? ' · المدة: ' + Math.max(1, Math.round((Math.min(Date.now(), s.deadline) - s.started) / 60000)) + ' دقيقة' : ''}</div>
       <div class="msg">${msg}</div>
       <div class="row">
-        <button class="btn primary" data-act="again">🔄 جولة جديدة</button>
-        ${wrong.length ? `<button class="btn" data-act="redo">🔁 أعد الأسئلة الخاطئة (${wrong.length})</button>` : ''}
-        <button class="btn" data-act="home">الرئيسية</button>
+        ${exam ? `<button class="btn primary" data-act="retake">🔄 امتحان جديد</button>` : `<button class="btn primary" data-act="again">🔄 جولة جديدة</button>`}
+        ${wrong.length ? `<button class="btn" data-act="redo">🔁 تدرّب على أخطائي (${wrong.length})</button>` : ''}
+        <button class="btn" data-act="home">${exam ? 'الامتحانات' : 'بنك الأسئلة'}</button>
       </div>
-    </div>
-    <div class="review">
-      <h2 class="sec" style="margin:0">${wrong.length ? 'تصحيح الأسئلة' : 'كل الأجوبة صحيحة 👏'}</h2>`;
-  const ordered = wrong.concat(s.items.filter(x => x.ans === x.q.a));
+    </div>`;
+  /* تفصيل النتيجة حسب المجالات */
+  const bySub = {};
+  for(const x of s.items){ const b = bySub[x.q.s] ||= [0, 0]; b[1]++; if(x.ans === 0) b[0]++; }
+  const secIds = [...new Set(s.items.map(x => SUB[x.q.s].sec.id))];
+  if(exam || Object.keys(bySub).length > 1){
+    h += `<div class="brk">`;
+    for(const sec of SECTIONS.filter(x => secIds.includes(x.id))){
+      for(const d of sec.domains){
+        const subs = d.subs.filter(x => bySub[x.id]); if(!subs.length) continue;
+        const dOk = subs.reduce((a, x) => a + bySub[x.id][0], 0), dN = subs.reduce((a, x) => a + bySub[x.id][1], 0);
+        h += `<div class="dom"><span>${esc(d.name)}</span><em>${dOk}/${dN}</em></div>`;
+        for(const x of subs){
+          const [ok, n] = bySub[x.id], p = Math.round(ok / n * 100);
+          h += `<div class="brow"><span class="n">${esc(x.name)}</span><span class="bar"><i style="width:${p}%;background:${pctColor(p)}"></i></span><span class="v">${ok}/${n}</span></div>`;
+        }
+      }
+    }
+    h += `</div>`;
+  }
+  const ordered = wrong.concat(s.items.filter(x => x.ans === 0));
+  h += `<details class="rvwrap" ${exam ? '' : 'open'}><summary>${wrong.length ? `📋 التصحيح المفصل (${wrong.length} خطأ)` : '📋 كل الأجوبة صحيحة 👏 — عرض الأسئلة'}</summary><div class="review">`;
   for(const x of ordered){
-    const ok = x.ans === x.q.a;
+    const ok = x.ans === 0;
     h += `<div class="rv ${ok ? 'ok' : ''}">
+      <div class="t">${esc(SUB[x.q.s].sub.name)}</div>
       <div class="q">${esc(x.q.q)}</div>
-      ${ok ? `<div class="right">✅ ${esc(x.q.c[x.q.a])}</div>`
+      ${ok ? `<div class="right">✅ ${esc(x.q.c[0])}</div>`
            : `<div class="yours">❌ جوابك: ${x.ans === null ? 'لم تُجب' : esc(x.q.c[x.ans])}</div>
-              <div class="right">✅ الصحيح: ${esc(x.q.c[x.q.a])}</div>
+              <div class="right">✅ الصحيح: ${esc(x.q.c[0])}</div>
               <div class="e">${esc(x.q.e)}</div>`}
     </div>`;
   }
-  app.innerHTML = h + '</div>';
+  app.innerHTML = h + '</div></details>';
   window.scrollTo(0, 0);
 }
 
-/* ---------- المؤقّت ---------- */
+/* ================= المؤقّت ================= */
 function startTimer(){ stopTimer(); timerId = setInterval(tick, 1000); }
 function stopTimer(){ if(timerId) clearInterval(timerId); timerId = null; }
-function tick(){ updateTimer(); if(session && session.deadline && !session.done && Date.now() >= session.deadline) finish(true); }
+function tick(){ updateTimer(); if(session && session.mode === 'exam' && !session.done && Date.now() >= session.deadline) finish(true); }
 function updateTimer(){
   const el = document.getElementById('timer'); if(!el || !session || !session.deadline) return;
   const left = Math.max(0, Math.round((session.deadline - Date.now()) / 1000));
-  el.textContent = `⏱ ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
-  el.classList.toggle('low', left < 60);
+  const hh = Math.floor(left / 3600), mm = Math.floor(left % 3600 / 60), ss = left % 60;
+  el.textContent = `⏱ ${hh ? hh + ':' + String(mm).padStart(2, '0') : mm}:${String(ss).padStart(2, '0')}`;
+  el.classList.toggle('low', left < 300);
 }
 
-/* ---------- التنقل ---------- */
-const QUIT_MSG = 'هل تريد الخروج؟ ستضيع هذه الجولة.';
-function inProgress(){ return session && !session.done && session.items.some(x => x.ans !== null); }
+/* ================= التنقل ================= */
+const QUIT_MSG = 'هل تريد الخروج؟ ستضيع جولة التدريب هذه.';
+function practiceInProgress(){ return session && session.mode !== 'exam' && !session.done && session.items.some(x => x.ans !== null); }
+function leaveSession(){
+  if(session && session.mode === 'exam' && !session.done){ saveActive(); toast('تم حفظ الامتحان — يمكنك متابعته لاحقاً'); }
+  stopTimer(); session = null; render();
+}
 function goHome(){
-  session = null; stopTimer();
-  if(history.state && history.state.quiz) history.back(); else home();
+  if(history.state && history.state.quiz) history.back(); else leaveSession();
 }
 window.addEventListener('popstate', () => {
-  if(inProgress() && !confirm(QUIT_MSG)){ history.pushState({quiz:1}, ''); return; }
-  home();
+  if(!session) return;
+  if(practiceInProgress() && !confirm(QUIT_MSG)){ history.pushState({quiz:1}, ''); return; }
+  leaveSession();
 });
 
 async function share(){
   const url = location.href.split('#')[0];
   try{
-    if(navigator.share){ await navigator.share({title:'مراجعة مباراة التعليم — اللغة العربية', text:'تطبيق للمراجعة بأسئلة QCM مع التصحيح', url}); return; }
+    if(navigator.share){ await navigator.share({title:'مراجعة مباراة التأهيل — اللغة العربية', text:'بنك أسئلة وامتحانات تجريبية QCM حسب توصيف دورة 2026', url}); return; }
     await navigator.clipboard.writeText(url); toast('تم نسخ الرابط ✓');
   }catch(e){}
 }
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]'); if(!b) return;
+  tab = b.dataset.tab; store.settings.tab = tab; persist(); render(); window.scrollTo(0, 0);
+});
+app.addEventListener('toggle', e => {
+  const d = e.target.closest && e.target.closest('details.scard'); if(!d) return;
+  d.open ? openSecs.add(d.dataset.sec) : openSecs.delete(d.dataset.sec);
+}, true);
 
 app.addEventListener('click', e => {
   const b = e.target.closest('[data-act]'); if(!b || b.disabled) return;
   const a = b.dataset.act, s = session;
   switch(a){
-    case 'subject': { const sb = subj(b.dataset.id); start('subject', Q.filter(q => q.s === b.dataset.id), sb.name, b.dataset.id); break; }
-    case 'exam': start('exam', Q, 'امتحان تجريبي'); break;
-    case 'mistakes': start('mistakes', Q.filter(q => store.stats[q.id]?.last === false), 'مراجعة أخطائي'); break;
+    case 'sub': { const x = SUB[b.dataset.id]; startPractice(qsOfSub(x.sub.id), x.sub.name, {sub: x.sub.id}); break; }
+    case 'secall': { const sec = SECTIONS.find(z => z.id === b.dataset.id); startPractice(qsOfSec(sec), sec.short + ' (مختلط)', {sec: sec.id}); break; }
+    case 'mistakes': startPractice(wrongOnes(), 'مراجعة أخطائي', {mistakes: 1}); break;
+    case 'exam': startExam(b.dataset.id); break;
+    case 'resume': resumeExam(); break;
+    case 'abandon': if(confirm('هل تريد إلغاء الامتحان الجاري؟ لن تُحتسب نتيجته.')){ store.active = null; persist(); render(); } break;
     case 'choose': choose(+b.dataset.ci); break;
-    case 'next': s.i++; renderQuiz(true); break;
-    case 'prev': s.i--; renderQuiz(true); break;
+    case 'next': s.i++; saveActive(); renderQuiz(true); break;
+    case 'prev': s.i--; saveActive(); renderQuiz(true); break;
+    case 'jump': s.i = +b.dataset.k; saveActive(); renderQuiz(true); break;
+    case 'map': showMap = !showMap; renderQuiz(false); if(showMap) document.querySelector('.qmap')?.scrollIntoView({behavior:'smooth', block:'nearest'}); break;
     case 'finish': finish(false); break;
-    case 'quit': if(!inProgress() || confirm(QUIT_MSG)) goHome(); break;
+    case 'quit': if(!practiceInProgress() || confirm(QUIT_MSG)) goHome(); break;
     case 'home': goHome(); break;
-    case 'again': start(s.mode, s.mode === 'mistakes' ? Q.filter(q => store.stats[q.id]?.last === false) : s.pool, s.title, s.sid); break;
-    case 'redo': start('mistakes', s.items.filter(x => x.ans !== x.q.a).map(x => x.q), 'إعادة الأسئلة الخاطئة'); break;
+    case 'again': {
+      const k = s.key, pool = k.sub ? qsOfSub(k.sub) : k.sec ? qsOfSec(SECTIONS.find(z => z.id === k.sec)) : wrongOnes();
+      if(!pool.length){ toast('لا توجد أسئلة خاطئة 👏'); goHome(); break; }
+      startPractice(pool, s.title, k); break;
+    }
+    case 'retake': startExam(s.sec); break;
+    case 'redo': startPractice(s.items.filter(x => x.ans !== 0).map(x => x.q), 'التدرّب على أخطاء الجولة', {mistakes: 1}); break;
     case 'share': share(); break;
     case 'reset':
-      if(confirm('هل تريد مسح كل التقدم والنتائج؟')){ store = {stats:{}, best:{}, settings:store.settings}; persist(); home(); toast('تم مسح التقدم'); }
+      if(confirm('هل تريد مسح كل التقدم وسجل الامتحانات؟')){ store = {stats:{}, history:[], active:null, settings:store.settings}; persist(); render(); toast('تم مسح التقدم'); }
       break;
   }
 });
@@ -384,16 +613,16 @@ app.addEventListener('change', e => {
 });
 /* لوحة المفاتيح: 1-4 للاختيار، Enter للتالي */
 document.addEventListener('keydown', e => {
-  if(!session || session.done) return;
+  if(!session || session.done || e.target.tagName === 'SELECT') return;
   const it = session.items[session.i];
   const n = parseInt(e.key, 10);
   if(n >= 1 && n <= it.order.length) choose(it.order[n - 1]);
-  else if(e.key === 'Enter'){ app.querySelector('[data-act="next"]:not(:disabled), [data-act="finish"]:not(:disabled)')?.click(); }
+  else if(e.key === 'Enter') app.querySelector('[data-act="next"]:not(:disabled), .qnav [data-act="finish"]:not(:disabled)')?.click();
 });
 
-home();
+render();
 
-/* ---------- تطبيق قابل للتثبيت (PWA) ---------- */
+/* ================= تطبيق قابل للتثبيت (PWA) ================= */
 if('serviceWorker' in navigator && location.protocol.startsWith('http')){
   navigator.serviceWorker.register('sw.js').catch(() => {});
 }

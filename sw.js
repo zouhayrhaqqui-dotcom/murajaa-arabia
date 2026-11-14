@@ -1,7 +1,8 @@
 // يسمح للتطبيق بالعمل بدون إنترنت.
-// غيّر رقم النسخة عند تعديل الملفات (مثلاً عند إضافة أسئلة) لتصل التحديثات بسرعة.
-const CACHE = 'murajaa-v1';
-const FILES = ['./', './index.html', './data.js', './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
+// الاستراتيجية: الشبكة أولاً (لتصل التحديثات فوراً)، ثم الذاكرة المؤقتة عند انقطاع الإنترنت.
+const CACHE = 'murajaa-v2';
+const FILES = ['./', './index.html', './data.js', './data-takh.js', './data-didac.js', './data-tarbia.js',
+               './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 
 self.addEventListener('install', e => {
@@ -25,12 +26,14 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.open(CACHE).then(async cache => {
       const cached = await cache.match(e.request, {ignoreSearch: sameOrigin});
-      // الخطوط: من الذاكرة أولاً. ملفات التطبيق: من الذاكرة فوراً مع تحديث في الخلفية.
-      if (cached && !sameOrigin) return cached;
-      const network = fetch(e.request)
-        .then(res => { if (res.ok || res.type === 'opaque') cache.put(e.request, res.clone()); return res; })
-        .catch(() => cached);
-      return cached || network;
+      if (cached && !sameOrigin) return cached;            // الخطوط: من الذاكرة
+      try {
+        const res = await fetch(e.request);                  // ملفات التطبيق: من الشبكة أولاً
+        if (res.ok || res.type === 'opaque') cache.put(e.request, res.clone());
+        return res;
+      } catch (err) {
+        return cached || Response.error();
+      }
     })
   );
 });
