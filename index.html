@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مراجعة مباراة التعليم</title>
+<meta name="description" content="أسئلة اختيار من متعدد مع التصحيح للتحضير لمباراة التعليم — تخصص اللغة العربية">
+<meta name="theme-color" content="#0f766e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مراجعة العربية">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f5; --panel:#fff; --text:#1b2421; --muted:#5f6d68; --border:#dce3e0;
+  --accent:#0f766e; --on-accent:#fff; --accent-soft:#e2f2ef;
+  --ok:#15803d; --ok-soft:#e6f5ea; --bad:#c2410c; --bad-soft:#fdeee6;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#101615; --panel:#19211f; --text:#e5ecea; --muted:#9aa8a3; --border:#2a3532;
+    --accent:#2dd4bf; --on-accent:#06201c; --accent-soft:#15322e;
+    --ok:#4ade80; --ok-soft:#14301f; --bad:#fb923c; --bad-soft:#3a2216;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Cairo",system-ui,"Segoe UI",Tahoma,sans-serif;font-size:16px;line-height:1.6;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+.btn{border:1px solid var(--border);background:var(--panel);border-radius:10px;padding:9px 16px}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:700}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.ghost{background:none;border:0;padding:6px 8px;color:var(--muted)}
+
+header.bar{display:flex;align-items:center;gap:10px;margin:4px 0 18px}
+header.bar h1{font-size:20px;margin:0;flex:1;line-height:1.35}
+header.bar h1 small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:14px 16px;text-align:right;display:flex;flex-direction:column;gap:2px}
+.tile b{font-size:16px}
+.tile span{color:var(--muted);font-size:13px}
+.tile.main{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.tile.main span{color:inherit;opacity:.85}
+.tile:disabled{opacity:.55;cursor:default}
+
+h2.sec{font-size:14px;color:var(--muted);margin:0 0 10px;font-weight:600}
+.subjects{display:grid;gap:10px}
+.subject{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;text-align:right;width:100%}
+.subject:hover,.tile:not(:disabled):not(.main):hover{border-color:var(--accent)}
+.subject .ic{font-size:22px;width:46px;height:46px;border-radius:12px;background:var(--accent-soft);display:grid;place-items:center;flex:none}
+.subject .info{flex:1;min-width:0}
+.subject .name,.subject .meta{display:block}
+.subject .name{font-weight:700}
+.subject .meta{font-size:13px;color:var(--muted)}
+.prog{height:5px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:6px}
+.prog div{height:100%;background:var(--accent);border-radius:3px}
+.best{font-size:13px;font-weight:700;color:var(--accent);flex:none;text-align:center;line-height:1.2}
+.best small{display:block;font-weight:400;color:var(--muted);font-size:11px}
+
+.settings{margin-top:26px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px 14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+.settings label{display:flex;gap:8px;align-items:center}
+.settings select{font:inherit;padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text)}
+.note{color:var(--muted);font-size:13px;margin-top:14px;line-height:1.7}
+
+.qtop{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.qtop .count{flex:1;color:var(--muted);font-size:14px}
+.timer{font-weight:700;font-variant-numeric:tabular-nums;direction:ltr}
+.timer.low{color:var(--bad)}
+.track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.track div{height:100%;background:var(--accent);transition:width .25s}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:16px;padding:18px}
+.tag{display:inline-block;font-size:12px;background:var(--accent-soft);color:var(--accent);border-radius:20px;padding:2px 10px;margin-bottom:10px;font-weight:600}
+.qtext{font-family:"Noto Naskh Arabic","Cairo",serif;font-size:20px;line-height:1.9;margin:0 0 16px;font-weight:600}
+.choices{display:grid;gap:10px}
+.choice{display:flex;gap:10px;align-items:flex-start;text-align:right;width:100%;border:1.5px solid var(--border);background:var(--panel);border-radius:12px;padding:11px 14px;font-family:"Noto Naskh Arabic","Cairo",serif;font-size:17px;line-height:1.75}
+.choice .k{flex:none;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);display:grid;place-items:center;font-family:"Cairo",sans-serif;font-size:14px;font-weight:700;margin-top:2px}
+.choice:hover:not(:disabled){border-color:var(--accent)}
+.choice:disabled{cursor:default}
+.choice.sel{border-color:var(--accent);background:var(--accent-soft)}
+.choice.sel .k{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.choice.ok{border-color:var(--ok);background:var(--ok-soft)}
+.choice.ok .k{background:var(--ok);border-color:var(--ok);color:var(--panel)}
+.choice.bad{border-color:var(--bad);background:var(--bad-soft)}
+.choice.bad .k{background:var(--bad);border-color:var(--bad);color:var(--panel)}
+.explain{margin-top:14px;border-radius:12px;padding:12px 14px;background:var(--bg);border-inline-start:4px solid var(--ok);font-size:15px;line-height:1.8}
+.explain b{display:block;margin-bottom:2px}
+.explain.bad{border-inline-start-color:var(--bad)}
+.qnav{display:flex;gap:10px;margin-top:16px;justify-content:space-between}
+
+.score{text-align:center;padding:26px 16px}
+.score .big{font-size:52px;font-weight:700;color:var(--accent);line-height:1.1;direction:ltr}
+.score .big small{font-size:22px;color:var(--muted)}
+.score .sub{color:var(--muted);margin-top:4px}
+.score .msg{font-size:18px;font-weight:700;margin-top:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+.review{margin-top:22px;display:grid;gap:10px}
+.rv{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--bad);border-radius:12px;padding:12px 14px;font-size:15px;line-height:1.8}
+.rv.ok{border-inline-start-color:var(--ok)}
+.rv .q{font-family:"Noto Naskh Arabic","Cairo",serif;font-weight:600;font-size:16px;margin-bottom:4px}
+.rv .yours{color:var(--bad)}
+.rv .right{color:var(--ok);font-weight:600}
+.rv .e{color:var(--muted);margin-top:4px}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+.toast.show{opacity:1}
+@media (max-width:520px){
+  .hero{grid-template-columns:1fr}
+  .qtext{font-size:18px}
+  .choice{font-size:16px}
+  .card{padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+const S = window.SUBJECTS, Q = window.QUESTIONS;
+const EXAM_N = 20;                // عدد أسئلة الامتحان التجريبي (دقيقة لكل سؤال)
+const LETTERS = ['أ','ب','ج','د','هـ'];
+const SKEY = 'murajaa.v1';
+const app = document.getElementById('app');
+
+/* ---------- التخزين ---------- */
+function loadStore(){
+  try{
+    const s = JSON.parse(localStorage.getItem(SKEY));
+    if(s && s.stats) return Object.assign({best:{}, settings:{count:10}}, s);
+  }catch(e){}
+  return {stats:{}, best:{}, settings:{count:10}};
+}
+let store = loadStore();
+function persist(){ try{ localStorage.setItem(SKEY, JSON.stringify(store)); }catch(e){} }
+function record(q, ok){
+  const st = store.stats[q.id] || {n:0, ok:0};
+  st.n++; if(ok) st.ok++; st.last = ok;
+  store.stats[q.id] = st; persist();
+}
+
+/* ---------- أدوات ---------- */
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const subj = id => S.find(s => s.id === id) || {name:'', icon:''};
+function shuffle(a){ a = a.slice(); for(let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]] = [a[j],a[i]]; } return a; }
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), 2200); }
+
+/* الأسئلة التي أخطأ فيها المتعلم أولاً، ثم الجديدة، ثم المتقنة */
+function pick(pool, n){
+  const w = q => { const s = store.stats[q.id]; return !s ? 1 : (s.last === false ? 0 : 2); };
+  const arr = shuffle(pool).sort((a,b) => w(a) - w(b));
+  return n ? shuffle(arr.slice(0, n)) : arr;
+}
+/* امتحان تجريبي: توزيع متوازن على جميع المواد */
+function pickExam(){
+  const per = S.map(s => shuffle(Q.filter(q => q.s === s.id)));
+  const out = [];
+  for(let r = 0; out.length < EXAM_N && per.some(p => p.length); r++){
+    for(const p of shuffle(per)){ if(p.length && out.length < EXAM_N) out.push(p.pop()); }
+  }
+  return shuffle(out);
+}
+
+/* ---------- الصفحة الرئيسية ---------- */
+let session = null, timerId = null;
+
+function home(){
+  stopTimer(); session = null;
+  const mistakes = Q.filter(q => store.stats[q.id]?.last === false).length;
+  const mastered = Q.filter(q => store.stats[q.id]?.last === true).length;
+  let h = `<header class="bar">
+      <h1>مراجعة مباراة التعليم<small>تخصص اللغة العربية · ${Q.length} سؤال · أتقنتَ ${mastered}</small></h1>
+      <button class="btn ghost" data-act="share">مشاركة ↗</button>
+    </header>
+    <div class="hero">
+      <button class="tile main" data-act="exam"><b>📝 امتحان تجريبي</b><span>${EXAM_N} سؤالاً من جميع المواد · ${EXAM_N} دقيقة</span></button>
+      <button class="tile" data-act="mistakes" ${mistakes ? '' : 'disabled'}><b>🔁 مراجعة أخطائي</b><span>${mistakes ? mistakes + ' سؤال أخطأتَ فيه' : 'لا توجد أخطاء بعد'}</span></button>
+    </div>
+    <h2 class="sec">المواد</h2>
+    <div class="subjects">`;
+  for(const s of S){
+    const qs = Q.filter(q => q.s === s.id);
+    const m = qs.filter(q => store.stats[q.id]?.last === true).length;
+    const pct = qs.length ? Math.round(m / qs.length * 100) : 0;
+    const best = store.best[s.id];
+    h += `<button class="subject" data-act="subject" data-id="${s.id}">
+        <span class="ic">${s.icon}</span>
+        <span class="info"><span class="name">${esc(s.name)}</span>
+          <span class="meta">${qs.length} سؤال · أتقنتَ ${m}</span>
+          <span class="prog" style="display:block"><span style="display:block;height:100%;width:${pct}%;background:var(--accent);border-radius:3px"></span></span></span>
+        ${best != null ? `<span class="best">${best}%<small>أفضل نتيجة</small></span>` : ''}
+      </button>`;
+  }
+  const cnt = store.settings.count;
+  h += `</div>
+    <div class="settings">
+      <label>عدد الأسئلة في كل جولة:
+        <select id="countSel">
+          <option value="10" ${cnt==10?'selected':''}>10</option>
+          <option value="20" ${cnt==20?'selected':''}>20</option>
+          <option value="0" ${cnt==0?'selected':''}>الكل</option>
+        </select></label>
+      <button class="btn ghost" data-act="reset">مسح التقدم</button>
+    </div>
+    <p class="note">💡 تظهر الأسئلة التي أخطأتَ فيها أولاً حتى تتقنها. تقدّمك محفوظ على هذا الجهاز فقط.<br>
+    ⚠️ هذه أسئلة نموذجية للمراجعة؛ إذا لاحظتَ خطأً في سؤال أو جواب فأخبر صاحب التطبيق لتصحيحه.</p>`;
+  app.innerHTML = h;
+}
+
+/* ---------- جولة الأسئلة ---------- */
+function start(mode, pool, title, sid){
+  const qs = mode === 'exam' ? pickExam() : pick(pool, mode === 'subject' ? +store.settings.count : 0);
+  if(!qs.length) return;
+  session = {mode, pool, title, sid, i:0, done:false,
+             items: qs.map(q => ({q, order: shuffle(q.c.map((_, k) => k)), ans: null}))};
+  if(mode === 'exam'){ session.deadline = Date.now() + qs.length * 60000; startTimer(); }
+  if(!(history.state && history.state.quiz)) history.pushState({quiz:1}, '');
+  renderQuiz(true);
+}
+
+function renderQuiz(toTop){
+  const s = session, it = s.items[s.i], q = it.q, exam = s.mode === 'exam';
+  const answered = it.ans !== null, feedback = !exam && answered, last = s.i === s.items.length - 1;
+  const doneCount = s.items.filter(x => x.ans !== null).length;
+  let h = `<div class="qtop">
+      <button class="btn ghost" data-act="quit">✕ خروج</button>
+      <span class="count">${esc(s.title)} · السؤال ${s.i + 1} من ${s.items.length}</span>
+      ${exam ? '<span class="timer" id="timer"></span>' : ''}
+    </div>
+    <div class="track"><div style="width:${doneCount / s.items.length * 100}%"></div></div>
+    <div class="card">
+      <span class="tag">${subj(q.s).icon} ${esc(subj(q.s).name)}</span>
+      <p class="qtext">${esc(q.q)}</p>
+      <div class="choices">`;
+  it.order.forEach((ci, k) => {
+    let cls = '';
+    if(feedback){ if(ci === q.a) cls = 'ok'; else if(ci === it.ans) cls = 'bad'; }
+    else if(it.ans === ci) cls = 'sel';
+    h += `<button class="choice ${cls}" data-act="choose" data-ci="${ci}" ${feedback ? 'disabled' : ''}><span class="k">${LETTERS[k]}</span><span>${esc(q.c[ci])}</span></button>`;
+  });
+  h += '</div>';
+  if(feedback){
+    const ok = it.ans === q.a;
+    h += `<div class="explain ${ok ? '' : 'bad'}"><b>${ok ? '✅ جواب صحيح' : '❌ جواب خاطئ — الصحيح: ' + esc(q.c[q.a])}</b>${esc(q.e)}</div>`;
+  }
+  h += '</div><div class="qnav">';
+  if(exam){
+    h += `<button class="btn" data-act="prev" ${s.i === 0 ? 'disabled' : ''}>→ السابق</button>`;
+    h += last ? `<button class="btn primary" data-act="finish">إنهاء الامتحان ✓</button>`
+              : `<button class="btn primary" data-act="next">التالي ←</button>`;
+  }else{
+    h += '<span></span>';
+    h += `<button class="btn primary" data-act="${last ? 'finish' : 'next'}" ${answered ? '' : 'disabled'}>${last ? 'عرض النتيجة' : 'التالي ←'}</button>`;
+  }
+  h += '</div>';
+  app.innerHTML = h;
+  updateTimer();
+  if(toTop) window.scrollTo(0, 0);
+}
+
+function choose(ci){
+  const it = session.items[session.i];
+  if(session.mode !== 'exam'){
+    if(it.ans !== null) return;
+    it.ans = ci; record(it.q, ci === it.q.a);
+  }else{
+    it.ans = ci;
+  }
+  renderQuiz(false);
+  if(session.mode !== 'exam') document.querySelector('.explain')?.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function finish(timeUp){
+  const s = session; if(!s || s.done) return;
+  if(s.mode === 'exam' && !timeUp){
+    const un = s.items.filter(x => x.ans === null).length;
+    if(un && !confirm(`بقي ${un} سؤال بدون جواب. هل تريد إنهاء الامتحان؟`)) return;
+  }
+  stopTimer();
+  if(s.mode === 'exam') s.items.forEach(x => record(x.q, x.ans === x.q.a));
+  const correct = s.items.filter(x => x.ans === x.q.a).length, total = s.items.length;
+  const pct = Math.round(correct / total * 100);
+  if(s.sid) store.best[s.sid] = Math.max(store.best[s.sid] || 0, pct);
+  persist();
+  s.done = true; s.result = {correct, total, pct};
+  if(timeUp) toast('⏰ انتهى الوقت');
+  renderResult();
+}
+
+function renderResult(){
+  const s = session, {correct, total, pct} = s.result;
+  const note = Math.round(correct / total * 20 * 10) / 10;
+  const msg = pct >= 80 ? 'ممتاز! مستوى جيد جداً 🎉' : pct >= 60 ? 'جيد! واصل المراجعة 👍'
+            : pct >= 40 ? 'مقبول، تحتاج إلى مزيد من المراجعة' : 'راجع هذه الدروس جيداً وأعد المحاولة 💪';
+  const wrong = s.items.filter(x => x.ans !== x.q.a);
+  let h = `<div class="qtop"><button class="btn ghost" data-act="home">→ الرئيسية</button><span class="count">${esc(s.title)}</span></div>
+    <div class="card score">
+      <div class="big">${note}<small> / 20</small></div>
+      <div class="sub">${correct} أجوبة صحيحة من ${total} · ${pct}%</div>
+      <div class="msg">${msg}</div>
+      <div class="row">
+        <button class="btn primary" data-act="again">🔄 جولة جديدة</button>
+        ${wrong.length ? `<button class="btn" data-act="redo">🔁 أعد الأسئلة الخاطئة (${wrong.length})</button>` : ''}
+        <button class="btn" data-act="home">الرئيسية</button>
+      </div>
+    </div>
+    <div class="review">
+      <h2 class="sec" style="margin:0">${wrong.length ? 'تصحيح الأسئلة' : 'كل الأجوبة صحيحة 👏'}</h2>`;
+  const ordered = wrong.concat(s.items.filter(x => x.ans === x.q.a));
+  for(const x of ordered){
+    const ok = x.ans === x.q.a;
+    h += `<div class="rv ${ok ? 'ok' : ''}">
+      <div class="q">${esc(x.q.q)}</div>
+      ${ok ? `<div class="right">✅ ${esc(x.q.c[x.q.a])}</div>`
+           : `<div class="yours">❌ جوابك: ${x.ans === null ? 'لم تُجب' : esc(x.q.c[x.ans])}</div>
+              <div class="right">✅ الصحيح: ${esc(x.q.c[x.q.a])}</div>
+              <div class="e">${esc(x.q.e)}</div>`}
+    </div>`;
+  }
+  app.innerHTML = h + '</div>';
+  window.scrollTo(0, 0);
+}
+
+/* ---------- المؤقّت ---------- */
+function startTimer(){ stopTimer(); timerId = setInterval(tick, 1000); }
+function stopTimer(){ if(timerId) clearInterval(timerId); timerId = null; }
+function tick(){ updateTimer(); if(session && session.deadline && !session.done && Date.now() >= session.deadline) finish(true); }
+function updateTimer(){
+  const el = document.getElementById('timer'); if(!el || !session || !session.deadline) return;
+  const left = Math.max(0, Math.round((session.deadline - Date.now()) / 1000));
+  el.textContent = `⏱ ${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+  el.classList.toggle('low', left < 60);
+}
+
+/* ---------- التنقل ---------- */
+const QUIT_MSG = 'هل تريد الخروج؟ ستضيع هذه الجولة.';
+function inProgress(){ return session && !session.done && session.items.some(x => x.ans !== null); }
+function goHome(){
+  session = null; stopTimer();
+  if(history.state && history.state.quiz) history.back(); else home();
+}
+window.addEventListener('popstate', () => {
+  if(inProgress() && !confirm(QUIT_MSG)){ history.pushState({quiz:1}, ''); return; }
+  home();
+});
+
+async function share(){
+  const url = location.href.split('#')[0];
+  try{
+    if(navigator.share){ await navigator.share({title:'مراجعة مباراة التعليم — اللغة العربية', text:'تطبيق للمراجعة بأسئلة QCM مع التصحيح', url}); return; }
+    await navigator.clipboard.writeText(url); toast('تم نسخ الرابط ✓');
+  }catch(e){}
+}
+
+app.addEventListener('click', e => {
+  const b = e.target.closest('[data-act]'); if(!b || b.disabled) return;
+  const a = b.dataset.act, s = session;
+  switch(a){
+    case 'subject': { const sb = subj(b.dataset.id); start('subject', Q.filter(q => q.s === b.dataset.id), sb.name, b.dataset.id); break; }
+    case 'exam': start('exam', Q, 'امتحان تجريبي'); break;
+    case 'mistakes': start('mistakes', Q.filter(q => store.stats[q.id]?.last === false), 'مراجعة أخطائي'); break;
+    case 'choose': choose(+b.dataset.ci); break;
+    case 'next': s.i++; renderQuiz(true); break;
+    case 'prev': s.i--; renderQuiz(true); break;
+    case 'finish': finish(false); break;
+    case 'quit': if(!inProgress() || confirm(QUIT_MSG)) goHome(); break;
+    case 'home': goHome(); break;
+    case 'again': start(s.mode, s.mode === 'mistakes' ? Q.filter(q => store.stats[q.id]?.last === false) : s.pool, s.title, s.sid); break;
+    case 'redo': start('mistakes', s.items.filter(x => x.ans !== x.q.a).map(x => x.q), 'إعادة الأسئلة الخاطئة'); break;
+    case 'share': share(); break;
+    case 'reset':
+      if(confirm('هل تريد مسح كل التقدم والنتائج؟')){ store = {stats:{}, best:{}, settings:store.settings}; persist(); home(); toast('تم مسح التقدم'); }
+      break;
+  }
+});
+app.addEventListener('change', e => {
+  if(e.target.id === 'countSel'){ store.settings.count = +e.target.value; persist(); }
+});
+/* لوحة المفاتيح: 1-4 للاختيار، Enter للتالي */
+document.addEventListener('keydown', e => {
+  if(!session || session.done) return;
+  const it = session.items[session.i];
+  const n = parseInt(e.key, 10);
+  if(n >= 1 && n <= it.order.length) choose(it.order[n - 1]);
+  else if(e.key === 'Enter'){ app.querySelector('[data-act="next"]:not(:disabled), [data-act="finish"]:not(:disabled)')?.click(); }
+});
+
+home();
+
+/* ---------- تطبيق قابل للتثبيت (PWA) ---------- */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+try{ navigator.storage?.persist?.(); }catch(e){}
+</script>
+</body>
+</html>
