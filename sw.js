@@ -1,6 +1,6 @@
 // يسمح للتطبيق بالعمل بدون إنترنت.
 // الاستراتيجية: الشبكة أولاً (لتصل التحديثات فوراً)، ثم الذاكرة المؤقتة عند انقطاع الإنترنت.
-const CACHE = 'murajaa-v2';
+const CACHE = 'murajaa-v3';
 const FILES = ['./', './index.html', './data.js', './data-takh.js', './data-didac.js', './data-tarbia.js',
                './manifest.json', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];

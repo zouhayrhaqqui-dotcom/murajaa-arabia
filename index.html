@@ -3,12 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>مراجعة مباراة التأهيل</title>
+<title>MADDAH MORAJAA</title>
+<meta name="author" content="Massine HAQQUI">
+<meta name="copyright" content="© 2026 Massine HAQQUI">
 <meta name="description" content="بنك أسئلة وامتحانات تجريبية QCM لمباراة ولوج مسلك تأهيل أساتذة التعليم الثانوي — تخصص اللغة العربية، حسب توصيف دورة 2026">
 <meta name="theme-color" content="#0f766e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="مراجعة العربية">
+<meta name="apple-mobile-web-app-title" content="MADDAH MORAJAA">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -42,6 +44,8 @@ body.in-session .wrap{padding-bottom:40px}
 header.bar{display:flex;align-items:center;gap:10px;margin:4px 0 18px}
 header.bar h1{font-size:20px;margin:0;flex:1;line-height:1.35}
 header.bar h1 small{display:block;color:var(--muted);font-weight:400;font-size:13px}
+.brand{display:block;font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:700;margin-bottom:2px}
+.copy{text-align:center;color:var(--muted);font-size:12px;margin:22px 0 0;letter-spacing:.02em}
 h2.sec{font-size:14px;color:var(--muted);margin:22px 0 10px;font-weight:600}
 .note{color:var(--muted);font-size:13px;line-height:1.75}
 
@@ -186,6 +190,8 @@ details.rvwrap>summary{cursor:pointer;font-weight:700;padding:10px 0;color:var(-
 const SECTIONS = window.SECTIONS, Q = window.QUESTIONS;
 const LETTERS = ['أ','ب','ج','د','هـ'];
 const SKEY = 'murajaa.v2';
+const APP_NAME = 'MADDAH MORAJAA';
+const COPY = '<p class="copy"><bdi dir="ltr">© 2026 Massine HAQQUI</bdi> · جميع الحقوق محفوظة</p>';
 const app = document.getElementById('app');
 
 function hid(s){ let h = 5381; for(let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
@@ -275,7 +281,7 @@ const openSecs = new Set(['takh']);
 function renderBank(){
   const wrong = wrongOnes().length;
   let h = `<header class="bar">
-      <h1>بنك الأسئلة<small>مباراة التأهيل — تخصص اللغة العربية · ${Q.length} سؤال · أتقنتَ ${mastered(Q)}</small></h1>
+      <h1><span class="brand">${APP_NAME}</span>بنك الأسئلة<small>مباراة التأهيل — تخصص اللغة العربية · ${Q.length} سؤال · أتقنتَ ${mastered(Q)}</small></h1>
       <button class="btn ghost" data-act="share">مشاركة ↗</button>
     </header>
     <button class="tile" data-act="mistakes" ${wrong ? '' : 'disabled'}><b>🔁 مراجعة أخطائي</b><span>${wrong ? wrong + ' سؤال أخطأتَ فيه آخر مرة' : 'لا توجد أخطاء بعد — ابدأ التدريب'}</span></button>
@@ -309,14 +315,14 @@ function renderBank(){
       <button class="btn ghost" data-act="reset">مسح التقدم</button>
     </div>
     <p class="note">💡 تظهر الأسئلة التي أخطأتَ فيها أولاً حتى تتقنها. تقدّمك محفوظ على هذا الجهاز فقط.<br>
-    ⚠️ أسئلة نموذجية مبنية على توصيف دورة نونبر 2026؛ إذا لاحظتَ خطأً فأخبر صاحب التطبيق لتصحيحه.</p>`;
+    ⚠️ أسئلة نموذجية مبنية على توصيف دورة نونبر 2026؛ إذا لاحظتَ خطأً فأخبر صاحب التطبيق لتصحيحه.</p>` + COPY;
   app.innerHTML = h;
 }
 
 /* ================= الامتحانات ================= */
 function renderExams(){
   let h = `<header class="bar">
-      <h1>الامتحانات التجريبية<small>${SECTIONS.length} اختبارات · ${SECTIONS[0].examN} سؤالاً في كل اختبار · حسب أوزان التوصيف الرسمي</small></h1>
+      <h1><span class="brand">${APP_NAME}</span>الامتحانات التجريبية<small>${SECTIONS.length} اختبارات · ${SECTIONS[0].examN} سؤالاً في كل اختبار · حسب أوزان التوصيف الرسمي</small></h1>
       <button class="btn ghost" data-act="share">مشاركة ↗</button>
     </header>`;
   const a = store.active;
@@ -362,7 +368,7 @@ function renderExams(){
     }
     h += `</div>`;
   }
-  h += `<p class="note">📝 الامتحان يحاكي المباراة: ${SECTIONS[0].examN} سؤالاً موزعة على المجالات حسب أوزانها، مع وقت محدد، والتصحيح يظهر في النهاية فقط. يمكنك الخروج ومتابعة الامتحان لاحقاً، لكن الوقت يستمر في الحساب.</p>`;
+  h += `<p class="note">📝 الامتحان يحاكي المباراة: ${SECTIONS[0].examN} سؤالاً موزعة على المجالات حسب أوزانها، مع وقت محدد، والتصحيح يظهر في النهاية فقط. يمكنك الخروج ومتابعة الامتحان لاحقاً، لكن الوقت يستمر في الحساب.</p>` + COPY;
   app.innerHTML = h;
 }
 
@@ -563,7 +569,7 @@ window.addEventListener('popstate', () => {
 async function share(){
   const url = location.href.split('#')[0];
   try{
-    if(navigator.share){ await navigator.share({title:'مراجعة مباراة التأهيل — اللغة العربية', text:'بنك أسئلة وامتحانات تجريبية QCM حسب توصيف دورة 2026', url}); return; }
+    if(navigator.share){ await navigator.share({title: APP_NAME, text: APP_NAME + ' — بنك أسئلة وامتحانات تجريبية QCM لمباراة التأهيل (اللغة العربية) حسب توصيف دورة 2026', url}); return; }
     await navigator.clipboard.writeText(url); toast('تم نسخ الرابط ✓');
   }catch(e){}
 }
